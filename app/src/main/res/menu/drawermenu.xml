@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_tuVung"
+            android:icon="@drawable/ic_word"
+            android:title="Từ vựng"
+            android:iconTint="#ff0707"/>
+        <item
+            android:id="@+id/drawer_hocTu"
+            android:icon="@drawable/ic_learn"
+            android:title="Học từ" />
+        <item
+            android:id="@+id/drawer_kiemTra"
+            android:icon="@drawable/ic_exam"
+            android:title="Kiểm tra" />
+        <item
+            android:id="@+id/drawer_chat"
+            android:icon="@drawable/ic_chat"
+            android:title="Chat" />
+    </group>
+
+    <item android:title="Tùy Chọn">
+        <menu>
+            <item
+                android:id="@+id/drawer_info"
+                android:icon="@drawable/ic_info"
+                android:title="Thông tin người dùng" />
+            <item
+                android:id="@+id/drawer_tuyChinh"
+                android:icon="@drawable/ic_custom"
+                android:title="Tùy Chỉnh" />
+            <item
+                android:id="@+id/drawer_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Đăng Xuất" />
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_background_2"
+    android:gravity="center"
+    android:padding="20dp">
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/icon_b"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textColor="#ffffff"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/edtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/edit_text_background_2"
+            android:hint="User Name"
+            android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
+            android:padding="5dp"/>
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/edit_text_background_2"
+            android:hint="Password"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:password="true"
+            android:padding="5dp"/>
+
+    <EditText
+        android:id="@+id/edtConfirmPassword"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/edit_text_background_2"
+        android:hint="Confirm Password"
+        android:textColor="#ffffff"
+        android:textColorHint="#afffffff"
+        android:password="true"
+        android:padding="5dp"/>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="Register"
+        android:textStyle="bold"
+        android:background="@drawable/button_1"/>
+
+
+</LinearLayout>
