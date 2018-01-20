@@ -2,7 +2,9 @@
     <string name="app_name">AppHocTiengNhat</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-
+    <string name="button_myword_name">Học theo từ của mình</string>
+    <string name="button_jlptword_name">Học theo JLPT</string>
+    <string name="current_database_index">CURRENT_DATABASE_INDEX</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

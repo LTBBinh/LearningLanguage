@@ -16,13 +16,13 @@ import android.arch.persistence.room.PrimaryKey;
 
 public class LuotTroChuyen {
     @PrimaryKey (autoGenerate = true)
-    private int maluottrochuyen;
+    public int maluottrochuyen;
     @ColumnInfo(name = "nhomchat_ma")
-    private int manhomchat;
+    public int manhomchat;
     @ColumnInfo(name = "ngdung_ma")
-    private int manguoidung;
-    private String thoigian;
-    private String tinnhan;
+    public int manguoidung;
+    public String thoigian;
+    public String tinnhan;
 
     public LuotTroChuyen() {
     }

@@ -1,14 +1,32 @@
 package com.nmp.phuc.applearnlanguage;
 
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.Toast;
+
+import com.nmp.phuc.applearnlanguage.AppRoom.AppDatabase;
+import com.nmp.phuc.applearnlanguage.AppRoom.TuVung;
+import com.nmp.phuc.applearnlanguage.AppRoom.TuVungDAO;
+import com.nmp.phuc.applearnlanguage.Models.CustomAdapter;
+
+import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 
 /**
@@ -19,7 +37,7 @@ import android.widget.Button;
  * Use the {@link hoctu#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class hoctu extends Fragment implements View.OnClickListener{
+public class hoctuUser extends ListFragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,12 +46,18 @@ public class hoctu extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button btnMyWord;
-    private Button btnNWord;
 
     private OnFragmentInteractionListener mListener;
 
-    public hoctu() {
+    private ArrayList<TuVung> listTu;
+    private ImageView forwordView;
+    private Button confirmBtn;
+    private Button learnBtn;
+
+    private CustomAdapter mListAdapter;
+    private int mCurrentDatabaseIndex=0;
+
+    public hoctuUser() {
         // Required empty public constructor
     }
 
@@ -46,8 +70,8 @@ public class hoctu extends Fragment implements View.OnClickListener{
      * @return A new instance of fragment hoctu.
      */
     // TODO: Rename and change types and number of parameters
-    public static hoctu newInstance(String param1, String param2) {
-        hoctu fragment = new hoctu();
+    public static hoctuUser newInstance(String param1, String param2) {
+        hoctuUser fragment = new hoctuUser();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,18 +86,31 @@ public class hoctu extends Fragment implements View.OnClickListener{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getListTuVung();
+        mListAdapter = new CustomAdapter(getActivity(),R.layout.kiemtra_list_item,listTu);
+        setListAdapter(mListAdapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_hoctu, container, false);
-        btnMyWord = view.findViewById(R.id.myWord);
-        btnNWord = view.findViewById(R.id.nWord);
-        btnNWord.setOnClickListener(this);
-        btnMyWord.setOnClickListener(this);
+        View view = inflater.inflate(R.layout.fragment_hoctu_user, container, false);
+
+        forwordView = view.findViewById(R.id.forwardView);
+        confirmBtn = view.findViewById(R.id.confirmBtn);
+        learnBtn = view.findViewById(R.id.learnBtn);
+
+        forwordView.setOnClickListener(this);
+        confirmBtn.setOnClickListener(this);
+        learnBtn.setOnClickListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -95,11 +132,30 @@ public class hoctu extends Fragment implements View.OnClickListener{
         mListener = null;
     }
 
+    protected void getListTuVung () {
+        AppDatabase database = Room.databaseBuilder(getActivity(), AppDatabase.class
+                , "hoc-tieng-nhat").build();
+        SharedPreferences save = getActivity().getPreferences(Context.MODE_PRIVATE);
+        mCurrentDatabaseIndex = save.getInt(getString(R.string.current_database_index),0);
+        final TuVungDAO tuVungDAO = database.getTuVungDAO();
+        listTu = new ArrayList<TuVung>();
+        for (int i = 0; i < 5; i++) {
+            final TuVung tu1 = new TuVung("友達", "bạn bè", 2, 2, "2018/02/01", 1);
+            listTu.add(tu1);
+        }
+        SharedPreferences.Editor editor = save.edit();
+        editor.putInt(getString(R.string.current_database_index),mCurrentDatabaseIndex);
+        editor.commit();
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.nWord :
-                Class mClass = hoctuJLPT.class;
+            case R.id.forwardView:
+                getListTuVung();
+                mListAdapter.notifyDataSetChanged();
+                break;
+            case R.id.learnBtn:
+                Class mClass = hoctuUser.class;
                 Fragment fgmHocTuUser = null;
                 try {
                     fgmHocTuUser = (Fragment) mClass.newInstance();
@@ -111,21 +167,17 @@ public class hoctu extends Fragment implements View.OnClickListener{
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.flcontent,fgmHocTuUser ).commit();
                 break;
-            case R.id.myWord :
-                Class mClass1 = hoctuUser.class;
-                Fragment fgmHocTuUser1 = null;
-                try {
-                    fgmHocTuUser1 = (Fragment) mClass1.newInstance();
-                } catch (java.lang.InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+            case R.id.confirmBtn:
+                MainActivity parent = (MainActivity) getActivity();
+                ArrayList<Switch> listSwitch = mListAdapter.getListSwitch();
+                parent.resetMissWord();
+                for (int i=0;i<listSwitch.size();i++) {
+                    if(listSwitch.get(i)!=null) {
+                        if (listSwitch.get(i).isChecked()) parent.addDataToMissWord(listTu.get(i).matu);
+                    }
                 }
-                FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
-                fragmentManager1.beginTransaction().replace(R.id.flcontent,fgmHocTuUser1 ).commit();
                 break;
         }
-
     }
 
     /**

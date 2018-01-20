@@ -10,13 +10,13 @@ import android.widget.Toast;
 @Entity (tableName = "tuvung")
 public class TuVung {
     @PrimaryKey (autoGenerate = true)
-    private int matu;
-    private String tumoi;
-    private String nghia;
-    private int chude;
-    private int loai;
-    private String thoigiannhap;
-    private int manguoinhap;
+    public int matu;
+    public String tumoi;
+    public String nghia;
+    public int chude;
+    public int loai;
+    public String thoigiannhap;
+    public int manguoinhap;
 
     public TuVung () {
 
@@ -42,5 +42,10 @@ public class TuVung {
         if (loai>=1&&loai<=7)
             this.loai = loai;
         else this.loai = 1;
+    }
+
+    @Override
+    public String toString() {
+        return tumoi;
     }
 }

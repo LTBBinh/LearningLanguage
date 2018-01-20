@@ -18,10 +18,10 @@ import android.arch.persistence.room.PrimaryKey;
 public class TuChiaSe {
     @PrimaryKey
     @ColumnInfo(name = "shared_matu")
-    private int matu;
-    private int mangshare;
-    private int manhom;
-    private String tgianshare;
+    public int matu;
+    public int mangshare;
+    public int manhom;
+    public String tgianshare;
 
     public TuChiaSe() {
     }

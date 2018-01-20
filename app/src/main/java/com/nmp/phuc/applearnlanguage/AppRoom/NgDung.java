@@ -10,18 +10,17 @@ import android.arch.persistence.room.PrimaryKey;
  */
 @Entity (tableName = "nguoidung",
          indices = {
-            @Index(value = {"tendangnhap,matkhau"}),
-            @Index(value = "matkhau",unique = true)
+            @Index(value = "mat_khau",unique = true)
          }
 )
 public class NgDung {
     @PrimaryKey (autoGenerate = true)
-    private int mangdung;
-    private String tenngdung;
-    private String sdt;
-    private String tendangnhap;
+    public int mangdung;
+    public String tenngdung;
+    public String sdt;
+    public String tendangnhap;
     @ColumnInfo(name = "mat_khau")
-    private String matkhau;
+    public String matkhau;
 
     public NgDung() {
     }

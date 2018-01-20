@@ -10,13 +10,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    private ArrayList<Integer> missWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        missWord = new ArrayList<>();
         setContentView(R.layout.activity_main);
         mDrawerLayout = findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -84,5 +88,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    public void resetMissWord () {
+        missWord = new ArrayList<>();
+    }
+    public void addDataToMissWord(int idMiss) {
+        missWord.add(idMiss);
+    }
+
+    public ArrayList<Integer> getMissWord() {
+        return missWord;
     }
 }

@@ -25,8 +25,8 @@ public interface NgDungDAO {
 
     @Query("SELECT * FROM nguoidung")
     public NgDung[] layTatcaNgDung();
-    @Query("SELECT * FROM tuvung WHERE tendangnhap LIKE :tendangnhap AND mat_khau LIKE :matkhau"
+    /*@Query("SELECT * FROM tuvung WHERE tendangnhap LIKE :tendangnhap AND mat_khau LIKE :matkhau"
     )
-    public NgDung layNgDung(String tendangnhap,String matkhau);
+    public NgDung layNgDung(String tendangnhap,String matkhau);*/
 
 }

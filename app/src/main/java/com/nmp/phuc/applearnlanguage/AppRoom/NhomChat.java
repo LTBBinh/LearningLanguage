@@ -9,8 +9,8 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity (tableName = "nhomchat")
 public class NhomChat {
     @PrimaryKey (autoGenerate = true)
-    private int manhomchat;
-    private String tgianbdau;
+    public int manhomchat;
+    public String tgianbdau;
 
     public NhomChat() {
     }
